@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'leaflet/dist/leaflet.css';
+
+:root {
+  color-scheme: dark;
+  --vayu-midnight: #081426;
+  --vayu-deep: #102C50;
+  --vayu-electric: #3478F6;
+  --vayu-cyan: #21D4E8;
+  --vayu-teal: #12BFA5;
+  --vayu-purple: #8067F5;
+  --vayu-soft: #F3F7FC;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #081426;
+}
+
+body {
+  background-color: #081426;
+  color: #F3F7FC;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .vayu-card {
+    @apply rounded-2xl border border-white/[0.08] bg-gradient-to-br from-[#0F2544]/85 via-[#0B1B33]/90 to-[#081426]/95 backdrop-blur-xl shadow-glass;
+  }
+  .vayu-card-hover {
+    @apply vayu-card transition-all duration-300 hover:border-vayu-cyan/30 hover:shadow-glow;
+  }
+  .vayu-input {
+    @apply w-full rounded-xl border border-white/10 bg-[#071224]/90 px-3.5 py-2.5 text-sm text-white placeholder-slate-400 transition focus:border-vayu-cyan/60 focus:outline-none focus:ring-2 focus:ring-vayu-cyan/20;
+  }
+  .vayu-select {
+    @apply rounded-xl border border-white/10 bg-[#071224]/95 px-3.5 py-2.5 text-sm text-white transition focus:border-vayu-cyan/60 focus:outline-none focus:ring-2 focus:ring-vayu-cyan/20;
+  }
+  .vayu-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-vayu-electric via-[#2A9DF0] to-vayu-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-glow-electric transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .vayu-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.05] px-4 py-2.5 text-sm font-medium text-slate-100 backdrop-blur transition-all duration-200 hover:border-vayu-cyan/40 hover:bg-white/[0.1] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #060f1e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1b3b68;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3478f6;
+}
+
+/* Leaflet dark environmental map refinement */
+.leaflet-container {
+  background: #071324 !important;
+  font-family: inherit !important;
+  border-radius: 0.875rem;
+}
+.leaflet-popup-content-wrapper {
+  background: rgba(10, 25, 47, 0.96) !important;
+  color: #f3f7fc !important;
+  border: 1px solid rgba(33, 212, 232, 0.28) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55) !important;
+}
+.leaflet-popup-tip {
+  background: rgba(10, 25, 47, 0.96) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(8, 20, 38, 0.82) !important;
+  color: #94a3b8 !important;
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: #21d4e8 !important;
+}
+.leaflet-control-zoom a {
+  background: #0d213d !important;
+  color: #f3f7fc !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: #163763 !important;
+}

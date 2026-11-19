@@ -1,0 +1,38 @@
+{
+  "name": "vayuverse-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VAYUVERSE AI — Predictive Air Intelligence & Community Response Platform",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0 -p 3000",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p 3000",
+    "lint": "next lint",
+    "backend:dev": "uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.17",
+    "jose": "^5.9.6",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.460.0",
+    "next": "^14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.13.3",
+    "tailwind-merge": "^2.5.5"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.9.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/leaflet": "^1.9.14",
+    "@types/node": "^20.17.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  }
+}

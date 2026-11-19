@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: vayuverse-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vayuverse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vayuverse_dev_pwd}
+      POSTGRES_DB: vayuverse
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vayuverse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: vayuverse-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://vayuverse:${POSTGRES_PASSWORD:-vayuverse_dev_pwd}@db:5432/vayuverse
+      AUTH_SECRET: ${AUTH_SECRET:-change-me-in-production-32-bytes}
+      INTERNAL_API_SECRET: ${INTERNAL_API_SECRET:-change-me-internal-secret}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:
