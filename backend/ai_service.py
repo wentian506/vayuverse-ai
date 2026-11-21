@@ -142,8 +142,7 @@ async def generate_grounded_response(
     if gemini_key:
         try:
             import httpx
-
-            gemini_model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+            gemini_model = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
             evidence_block = (
                 f"RETRIEVED LIVE EVIDENCE CONTEXT:\n"
                 f"- Location: {loc['city']}, {loc['state']}, {loc['country']} ({loc['lat']:.3f}, {loc['lon']:.3f})\n"
@@ -153,6 +152,7 @@ async def generate_grounded_response(
                 f"- Weather: Temp={wx['temp_c']}°C, Humidity={wx['humidity_pct']}%, Wind={wx['wind_kph']} km/h {wx['wind_compass']}, Pressure={wx['pressure_hpa']} hPa\n"
                 f"- 24h Avg NAQI: {comp['last_24h_avg_aqi']} (delta {comp['delta_aqi']:+d} vs prior 24h)\n"
                 f"- Cleanest upcoming hour: {cleanest.get('time')} (NAQI {cleanest.get('indian_aqi')}) | Peak hour: {peak.get('time')} (NAQI {peak.get('indian_aqi')})\n"
+                f"- Community Reports (USER REPORTED, unverified unless stated): {recent_incidents[:5]}\n"
                 f"- User Context: Name={user_context.get('name')}, Language={language}, Alert Threshold={user_context.get('aqi_threshold')}\n"
             )
             async with httpx.AsyncClient(timeout=18.0) as gclient:
